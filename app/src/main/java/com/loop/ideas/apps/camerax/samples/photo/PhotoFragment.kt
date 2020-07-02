@@ -57,7 +57,7 @@ class PhotoFragment : Fragment() {
         if (allPermissionsGranted()) {
             startCamera()
         } else {
-            ActivityCompat.requestPermissions(requireActivity(),
+            requestPermissions(
                 REQUIRED_PERMISSIONS,
                 REQUEST_CODE_PERMISSIONS
             )
@@ -71,13 +71,17 @@ class PhotoFragment : Fragment() {
         cameraExecutor = Executors.newSingleThreadExecutor()
     }
 
+
     override fun onRequestPermissionsResult(
         requestCode: Int,
         permissions: Array<String>,
         grantResults: IntArray
     ) {
+        Log.i(TAG, "onRequestPermissionsResult")
         if (requestCode == REQUEST_CODE_PERMISSIONS) {
+            Log.i(TAG, "REQUEST_CODE_PERMISSIONS")
             if (allPermissionsGranted()) {
+                Log.i(TAG, "Start camera")
                 startCamera()
             } else {
                 Toast.makeText(requireActivity(),
